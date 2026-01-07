@@ -34,3 +34,51 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+
+
+Project 2.8
+
+# Internship & Mentorship Portal
+
+This project is a unified portal designed to help college students
+track internship applications and mentorship feedback in one place.
+
+## Folder Structure
+
+src/
+├── app/
+│   └── Routes and pages using Next.js App Router (TSX)
+├── components/
+│   └── Reusable UI components written in TSX
+├── lib/
+│   └── Utility functions, helpers, and configuration files
+
+## Why This Structure?
+
+- Clear separation of concerns
+- Improves maintainability and readability
+- Enables parallel development in teams
+- Scales well for future sprints
+
+## Setup Instructions
+
+1. Install dependencies:
+   npm install
+
+2. Start the development server:
+   npm run dev
+
+3. Open in browser:
+   http://localhost:3000
+
+## Reflection
+
+This structure provides a strong foundation for future development.
+By separating routing, components, and utilities, the team can scale
+the application efficiently while maintaining clean and organized code.
+
+## Screenshot
+
+![Local App Running](./screenshot.png)
