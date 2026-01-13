@@ -13,7 +13,7 @@ export default function Login() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white p-6 rounded-xl shadow-md">
+      <div className="w-full max-w-md bg-black p-6 rounded-xl shadow-md">
         <h1 className="text-2xl font-semibold text-center mb-6">
           Login Page
         </h1>
@@ -50,7 +50,7 @@ export default function Login() {
 
           <button
             onClick={handleLogin}
-            className="bg-blue-600 hover:bg-blue-700 transition text-white py-2 rounded-lg font-medium mt-2"
+            className="bg-blue-600 hover:bg-blue-700 transition text-black py-2 rounded-lg font-medium mt-2"
           >
             Login
           </button>
