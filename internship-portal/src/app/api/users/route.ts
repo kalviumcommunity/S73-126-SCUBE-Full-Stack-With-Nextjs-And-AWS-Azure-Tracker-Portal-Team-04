@@ -5,23 +5,26 @@ import { userSchema } from "@/lib/schemas/userSchema";
 import { ZodError } from "zod";
 
 const USERS_CACHE_KEY = "users:list";
-const CACHE_TTL = 60; // seconds
+const CACHE_TTL = 60;
+
+const headers = {
+  "Access-Control-Allow-Origin": "http://localhost:3000",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
 
 export async function GET() {
   try {
-    // 1️⃣ Check Redis cache
     const cachedUsers = await redis.get(USERS_CACHE_KEY);
 
     if (cachedUsers) {
       console.log("Cache Hit");
-      return NextResponse.json(JSON.parse(cachedUsers));
+      return NextResponse.json(JSON.parse(cachedUsers), { headers });
     }
 
-    // 2️⃣ Cache miss → fetch from DB
     console.log("Cache Miss - Fetching from DB");
     const users = await prisma.user.findMany();
 
-    // 3️⃣ Store in Redis with TTL
     await redis.set(
       USERS_CACHE_KEY,
       JSON.stringify(users),
@@ -29,11 +32,11 @@ export async function GET() {
       CACHE_TTL
     );
 
-    return NextResponse.json(users);
+    return NextResponse.json(users, { headers });
   } catch (error) {
     return NextResponse.json(
       { success: false, message: "Failed to fetch users" },
-      { status: 500 }
+      { status: 500, headers }
     );
   }
 }
@@ -43,13 +46,12 @@ export async function POST(req: Request) {
     const body = await req.json();
     const data = userSchema.parse(body);
 
-    // 4️⃣ Create user in DB
     const user = await prisma.user.create({ data });
 
-    // 5️⃣ Invalidate cache after write
+    // Invalidate cache after write
     await redis.del(USERS_CACHE_KEY);
 
-    return NextResponse.json(user, { status: 201 });
+    return NextResponse.json(user, { status: 201, headers });
   } catch (error) {
     if (error instanceof ZodError) {
       return NextResponse.json(
@@ -60,13 +62,13 @@ export async function POST(req: Request) {
             message: e.message,
           })),
         },
-        { status: 400 }
+        { status: 400, headers }
       );
     }
 
     return NextResponse.json(
       { success: false, message: "Server error" },
-      { status: 500 }
+      { status: 500, headers }
     );
   }
 }
