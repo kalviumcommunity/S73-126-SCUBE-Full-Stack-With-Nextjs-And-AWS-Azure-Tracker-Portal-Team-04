@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Code Review Checklist
 
-## Getting Started
+Before approving a pull request, reviewers should ensure:
 
-First, run the development server:
+- Code follows naming conventions and project structure
+- Feature works as expected when tested locally
+- No console errors or warnings
+- ESLint and Prettier checks pass
+- Code is readable and well-documented
+- No sensitive data (keys, secrets) is exposed
+- Changes are scoped only to the PR purpose
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Collaboration Workflow
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Branching Strategy
+We follow a structured branching convention:
+- feature/<feature-name>
+- fix/<bug-name>
+- chore/<task-name>
+- docs/<update-name>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Pull Request Process
+All changes must go through pull requests using a standardized PR template.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Code Review Guidelines
+Every PR is reviewed using a shared checklist to ensure code quality and security.
 
-## Learn More
+### Branch Protection
+The main branch is protected to prevent direct pushes and enforce review and CI checks.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Reflection
+This workflow improves collaboration, prevents accidental bugs, enforces quality checks, and ensures consistent code delivery.
