@@ -7,17 +7,29 @@ import AddUser from "./AddUser";
 export default function UsersPage() {
   const { data, error, isLoading } = useSWR("/api/users", fetcher);
 
-  if (error) return <p className="text-red-600">Failed to load users</p>;
-  if (isLoading) return <p>Loading...</p>;
+  // Force error boundary if API fails
+  if (error) {
+    throw error;
+  }
+
+  // SWR still needs a loading fallback for client rendering
+  if (isLoading) {
+    return <p className="p-6">Loading users...</p>;
+  }
+
+  // Extra safety
+  if (!data) {
+    throw new Error("Failed to load users");
+  }
 
   return (
-    <div>
+    <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Users</h1>
 
       <ul className="mb-4">
-        {data.map((u: any) => (
-          <li key={u.id}>
-            {u.name} — {u.email}
+        {data.map((user: any) => (
+          <li key={user.id} className="border-b py-2">
+            {user.name} — {user.email}
           </li>
         ))}
       </ul>
