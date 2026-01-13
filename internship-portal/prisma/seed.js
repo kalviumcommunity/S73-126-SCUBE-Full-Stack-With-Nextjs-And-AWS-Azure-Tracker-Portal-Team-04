@@ -1,9 +1,8 @@
-const { PrismaClient } = require("@prisma/client");
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  // Idempotency check
   const existingUser = await prisma.user.findUnique({
     where: { email: "demo@kalvium.com" },
   });
@@ -17,18 +16,6 @@ async function main() {
     data: {
       name: "Kalvium Demo User",
       email: "demo@kalvium.com",
-      projects: {
-        create: {
-          title: "Database Migrations & Seeding",
-          tasks: {
-            create: [
-              { title: "Create Prisma migration" },
-              { title: "Add seed script" },
-              { title: "Verify data in Prisma Studio" },
-            ],
-          },
-        },
-      },
     },
   });
 
@@ -36,10 +23,5 @@ async function main() {
 }
 
 main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+  .catch(console.error)
+  .finally(() => prisma.$disconnect());
