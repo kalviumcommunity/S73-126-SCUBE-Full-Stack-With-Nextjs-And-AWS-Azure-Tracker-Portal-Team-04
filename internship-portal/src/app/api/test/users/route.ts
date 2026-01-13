@@ -1,19 +1,9 @@
-import { sendSuccess, sendError } from "@/lib/responseHandler";
+import { handleError } from "@/lib/errorHandler";
 
 export async function GET() {
   try {
-    const users = [
-      { id: 1, name: "Alice" },
-      { id: 2, name: "Bob" },
-    ];
-
-    return sendSuccess(users, "Users fetched successfully");
+    throw new Error("Users route test error");
   } catch (error) {
-    return sendError(
-      "Failed to fetch users",
-      "USER_FETCH_ERROR",
-      500,
-      error
-    );
+    return handleError(error, "GET /api/test/users");
   }
 }
