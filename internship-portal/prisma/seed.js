@@ -16,6 +16,7 @@ async function main() {
     data: {
       name: "Kalvium Demo User",
       email: "demo@kalvium.com",
+      password: "12345"
     },
   });
 
