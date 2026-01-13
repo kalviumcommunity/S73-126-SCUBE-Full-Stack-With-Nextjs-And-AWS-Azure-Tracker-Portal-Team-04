@@ -1,25 +1,20 @@
 import { NextResponse } from "next/server";
+import { roles } from "@/config/roles";
 import { prisma } from "@/lib/prisma";
 
-export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
-  const user = await prisma.user.findUnique({
-    where: { id: Number(params.id) },
-  });
+export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+  const role = req.headers.get("x-user-role");
 
-  if (!user) {
-    return NextResponse.json({ error: "User not found" }, { status: 404 });
+  console.log(`[RBAC] ${role} attempted DELETE user ${params.id}`);
+
+  if (!role || !roles[role]?.includes("delete")) {
+    return NextResponse.json(
+      { success: false, message: "Access denied" },
+      { status: 403 }
+    );
   }
 
-  return NextResponse.json(user);
-}
-
-export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
   await prisma.user.delete({ where: { id: Number(params.id) } });
-  return NextResponse.json({ message: "User deleted" });
+
+  return NextResponse.json({ success: true });
 }
