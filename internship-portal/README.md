@@ -82,3 +82,24 @@ the application efficiently while maintaining clean and organized code.
 ## Screenshot
 
 ![Local App Running](./screenshot.png)
+
+
+## 📘 API & System Documentation
+
+### API Documentation
+- Tool: Postman Collection
+- Version: v1.0.0
+- Base URL: http://localhost:3000
+- Authentication: JWT (Bearer Token)
+- Location: docs/postman_collection.json
+
+### Architecture Documentation
+- File: ARCHITECTURE.md
+- Describes system design, data flow, security, and CI/CD
+
+### Documentation Workflow
+- API changes require Postman update
+- Architecture changes require README + ARCHITECTURE.md update
+
+### Reflection
+Maintaining structured API and system documentation improves onboarding, reduces integration errors, and ensures long-term maintainability.
